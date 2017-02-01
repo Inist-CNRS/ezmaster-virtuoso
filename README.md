@@ -10,3 +10,7 @@ See https://github.com/Inist-CNRS/ezmaster-hexo
 ## Build
 
 docker build --tag ezmaster-virtuoso:1.0.0 .
+
+## Versioning
+
+Use semver, but don't prefix version tag with `v`.
