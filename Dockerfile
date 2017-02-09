@@ -10,3 +10,6 @@ RUN echo '{ \
   "configPath": "/tmp/config.json" \
 }' > /etc/ezmaster.json
 # ----------------------------------------------- #
+
+# Replace tneforce's script (modified loading)
+ADD virtuoso.sh /virtuoso.sh
