@@ -8,8 +8,20 @@ See https://github.com/Inist-CNRS/ezmaster-hexo
 
 ## Build
 
-docker build --tag ezmaster-virtuoso:1.0.0 .
+    docker build --tag ezmaster-virtuoso:1.0.0 .
 
 ## Versioning
 
 Use semver, but don't prefix version tag with `v`.
+
+## Load data
+
+To load a NQuads file (`.nq`), you need an instance of `ezmaster-virtuoso`
+running in ezMaster.
+
+You can then upload the `.nq` file(s).
+
+To initiate the load process, you have to stop the instance, and start it again.
+
+The instance will load all recent files (that is to say, all the files more
+recent than the last start).
