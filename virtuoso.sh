@@ -54,10 +54,12 @@ if [ ! -f "/.data_loaded" ] && [ -d "toLoad" ] ;
 then
     echo "Start data loading from toLoad folder"
     pwd="dba"
-    graph="http://localhost:8890/DAV"
+    # graph="http://localhost:8890/DAV"
+    withoutExt=`echo "$filename" | sed "s|\.gz$||" | sed "s|\.[a-z]*$||"`
+    graph=`echo "http://$withoutExt" | sed "s|_|/|g"`
 
     if [ "$DBA_PASSWORD" ]; then pwd="$DBA_PASSWORD" ; fi
-    if [ "$DEFAULT_GRAPH" ]; then graph="$DEFAULT_GRAPH" ; fi
+    # if [ "$DEFAULT_GRAPH" ]; then graph="$DEFAULT_GRAPH" ; fi
     echo "ld_dir('toLoad', '*', '$graph');" >> /load_data.sql
     echo "rdf_loader_run();" >> /load_data.sql
     echo "exec('checkpoint');" >> /load_data.sql
@@ -79,10 +81,12 @@ then
             echo "Load ./toLoad/$filename"
 
             pwd="dba"
-            graph="http://localhost:8890/DAV"
+            #graph="http://localhost:8890/DAV"
+            withoutExt=`echo "$filename" | sed "s|\.gz$||" | sed "s|\.[a-z]*$||"`
+            graph=`echo "http://$withoutExt" | sed "s|_|/|g"`
 
             if [ "$DBA_PASSWORD" ]; then pwd="$DBA_PASSWORD" ; fi
-            if [ "$DEFAULT_GRAPH" ]; then graph="$DEFAULT_GRAPH" ; fi
+            # if [ "$DEFAULT_GRAPH" ]; then graph="$DEFAULT_GRAPH" ; fi
             echo "ld_dir('toLoad', '$filename', '$graph');" > /load_data.sql
             echo "rdf_loader_run();" >> /load_data.sql
             echo "exec('checkpoint');" >> /load_data.sql
