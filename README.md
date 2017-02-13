@@ -25,3 +25,21 @@ To initiate the load process, you have to stop the instance, and start it again.
 
 The instance will load all recent files (that is to say, all the files more
 recent than the last start).
+
+## Configuration
+
+If you ant to change an environment variable within the container, add (or
+modify) a `env` section within the ezMaster instance's configuration, and a key value pair.
+
+Ex:
+
+```json
+{
+  "env": {
+    "DBA_PASSWORD": "secret"
+  }
+}
+```
+
+That will add the `DBA_PASSWORD` environment variable in virtuoso environment
+before running it.

@@ -3,6 +3,9 @@ cd /data
 
 mkdir -p dumps
 
+/config2env.py > /env.sh
+source /env.sh
+
 if [ ! -f ./virtuoso.ini ];
 then
   mv /virtuoso.ini . 2>/dev/null

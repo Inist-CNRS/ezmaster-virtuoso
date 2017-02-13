@@ -13,3 +13,4 @@ RUN echo '{ \
 
 # Replace tneforce's script (modified loading)
 ADD virtuoso.sh /virtuoso.sh
+ADD config2env.py /config2env.py
