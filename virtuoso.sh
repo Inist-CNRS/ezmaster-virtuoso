@@ -36,7 +36,18 @@ then
   if [ "$SPARQL_UPDATE" = "true" ]; then echo "GRANT SPARQL_UPDATE to \"SPARQL\";" >> /sql-query.sql ; fi
   virtuoso-t +wait && isql-v -U dba -P dba < /dump_nquads_procedure.sql && isql-v -U dba -P dba < /sql-query.sql
   kill $(ps aux | grep '[v]irtuoso-t' | awk '{print $2}')
-  touch /.dba_pwd_set
+  #touch /.dba_pwd_set
+  echo ${DBA_PASSWORD:-dba} > /.dba_pwd_set
+fi
+
+if [ -f "/.dba_pwd_set" ] && [ "$DBA_PASSWORD" ];
+then
+  OLD_PASSWORD=`cat /.dba_pwd_set`
+  echo "user_set_password('dba', '$DBA_PASSWORD');" > /sql-query.sql
+  if [ "$SPARQL_UPDATE" = "true" ]; then echo "GRANT SPARQL_UPDATE to \"SPARQL\";" >> /sql-query.sql ; fi
+  virtuoso-t +wait && isql-v -U dba -P $OLD_PASSWORD < /dump_nquads_procedure.sql && isql-v -U dba -P $OLD_PASSWORD < /sql-query.sql
+  kill $(ps aux | grep '[v]irtuoso-t' | awk '{print $2}')
+  echo ${DBA_PASSWORD} > /.dba_pwd_set
 fi
 
 if [ ! -f "/.data_loaded" ] && [ -d "toLoad" ] ;
