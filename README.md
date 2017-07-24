@@ -9,7 +9,7 @@ See [ezmaster-hexo](https://github.com/Inist-CNRS/ezmaster-hexo)'s code.
 
 ## Build
 
-    docker build --tag ezmaster-virtuoso:1.0.0 .
+    docker build --tag ezmaster-virtuoso:2.0.0 .
 
 ## Versioning
 
@@ -17,18 +17,14 @@ Use semver, but don't prefix version tag with `v`.
 
 ## Load data
 
-To load a NQuads file (`.nq`), you need an instance of `ezmaster-virtuoso`
-running in ezMaster.
+To load triples files (N-Triples, `.nt`), use the
+[conductor interface](http://docs.openlinksw.com/virtuoso/htmlconductorbar/#rdfadm).
 
-You can then upload the `.nq` file(s) into the `toLoad` directory. You have to
-create this directory yourself (use WebDAV URL).
+Don't forget to create graph explicitly.
 
-To initiate the load process, you have to stop the instance, and start it again.
-
-The instance will load all recent files (that is to say, all the files more
-recent than the last start).
-
-Alternately, you can use the [conductor interface](http://docs.openlinksw.com/virtuoso/htmlconductorbar/#rdfadm).
+> **Warning**: don't use the previous loading method, using ezmaster's WebDAV:
+> the location of the files to load would be different, and, at the moment, this
+> method does not work any more.
 
 ### Named graphs
 
