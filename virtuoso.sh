@@ -54,21 +54,23 @@ if [ ! -f "/.data_loaded" ] && [ -d "toLoad" ] ;
 then
     echo "Start data loading from toLoad folder"
     pwd="dba"
-    # graph="http://localhost:8890/DAV"
-    withoutExt=$(echo "$filename" | sed "s|\.gz$||" | sed "s|\.[a-z]*$||")
-    graph=$(echo "http://$withoutExt" | sed "s|_|/|g")
-
     if [ "$DBA_PASSWORD" ]; then pwd="$DBA_PASSWORD" ; fi
-    # if [ "$DEFAULT_GRAPH" ]; then graph="$DEFAULT_GRAPH" ; fi
-    {
-      echo "ld_dir('toLoad', '*', '$graph');";
-      echo "rdf_loader_run();";
-      echo "exec('checkpoint');";
-      echo "WAIT_FOR_CHILDREN; ";
-    } >> /load_data.sql
-    cat /load_data.sql
-    virtuoso-t +wait && isql-v -U dba -P "$pwd" < /load_data.sql
-    kill "$(pgrep '[v]irtuoso-t')"
+
+    for filename in ./toLoad/*
+    do
+      withoutExt=$(echo "$filename" | sed "s|\.gz$||" | sed "s|\.[a-z]*$||")
+      graph=$(echo "http://$withoutExt" | sed "s|_|/|g")
+
+      {
+        echo "ld_dir('toLoad', '$filename', '$graph');";
+        echo "rdf_loader_run();";
+        echo "exec('checkpoint');";
+        echo "WAIT_FOR_CHILDREN; ";
+      } > /load_data.sql
+      cat /load_data.sql
+      virtuoso-t +wait && isql-v -U dba -P "$pwd" < /load_data.sql
+      kill "$(pgrep '[v]irtuoso-t')"
+    done
     ls -lt --time-style=long-iso ./toLoad | grep -v '^total [0-9]\+$' | awk '{ print $6, $7, $8 }' > /.data_loaded
 fi
 
