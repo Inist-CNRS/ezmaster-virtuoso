@@ -61,17 +61,15 @@ before running it.
 
 ### .ini configuration
 
-All properties defined in [`virtuoso.ini`](https://github.com/tenforce/docker-virtuoso/blob/8ea659bde39644b56a9934776858ede28eee06f0/virtuoso.ini) can be configured via the environment
-variables. The environment variable should be prefixed with `VIRT_` and have a
-format like `VIRT_$SECTION_$KEY`. `$SECTION` and `$KEY` are case sensitive. They
+All properties defined in [`virtuoso.ini`](https://github.com/tenforce/docker-virtuoso/blob/8ea659bde39644b56a9934776858ede28eee06f0/virtuoso.ini) can be configured via the JSON configuration variables. They must follow the section / key / value structure, and are case sensitivE. They
 should be CamelCased as in `virtuoso.ini`.
 
 E.g. property `ErrorLogFile` in the `Database` section should be configured as `VIRT_Database_ErrorLogFile=error.log`.
 
 ```json
 {
-  "env": {
-    "VIRT_Database_ErrorLogFile": "error.log"
+  "Database": {
+    "ErrorLogFile": "error.log"
   }
 }
 ```
