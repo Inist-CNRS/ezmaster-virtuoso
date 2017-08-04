@@ -14,7 +14,7 @@ fi
 chmod +x /clean-logs.sh
 mv /clean-logs.sh . 2>/dev/null
 
-if [ ! -f "/.config_set" ];
+if [ ! -f "/.config_set" ] || [ "/.config_set" -ot "/tmp/config.json" ];
 then
   echo "Converting environment variables to ini file"
   printenv | grep -P "^VIRT_" | while read setting
