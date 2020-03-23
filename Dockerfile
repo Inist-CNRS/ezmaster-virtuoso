@@ -1,4 +1,4 @@
-FROM tenforce/virtuoso:1.2.0-virtuoso7.2.4
+FROM tenforce/virtuoso:1.3.2-virtuoso7.2.5.1
 
 # ----------------------------------------------- #
 # ezMaster configuration                          #
