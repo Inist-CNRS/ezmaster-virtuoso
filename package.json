@@ -1,0 +1,21 @@
+{
+  "name": "ezmaster-virtuoso",
+  "version": "2.1.0",
+  "description": "[Ezmasterization](https://github.com/Inist-CNRS/ezmaster) of virtuoso database",
+  "scripts": {
+    "insertversion:readme": "sed -i \"s#\\(inistcnrs/ezmaster-virtuoso:\\)\\([\\.a-z0-9]\\+\\)#\\1${npm_package_version}#g\" README.md",
+    "insertversion:makefile": "sed -i \"s#\\(inistcnrs/ezmaster-virtuoso:\\)\\([\\.a-z0-9]\\+\\)#\\1${npm_package_version}#g\" Makefile",
+    "version": "npm run insertversion:readme && npm run insertversion:makefile && git add README.md Makefile",
+    "postversion": "git push && git push --tags"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Inist-CNRS/ezmaster-virtuoso.git"
+  },
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/Inist-CNRS/ezmaster-virtuoso/issues"
+  },
+  "homepage": "https://github.com/Inist-CNRS/ezmaster-virtuoso#readme",
+  "dependencies": {}
+}
